@@ -1,0 +1,20 @@
+- hosts: all
+  tasks:
+   - name: "creating namenode directory" 
+     file:
+        state: directory
+        path: "/nn" 
+   - name: "creating hdfs file"
+     template: 
+       src: "/root/ansiblews/task11/hdfs-site.xml"
+       dest: "/etc/hadoop/hdfs-site.xml"
+   - name: "creating core file"
+     template:
+       src: "/root/ansiblews/task11/core-site.xml"
+       dest: "/etc/hadoop/core-site.xml"
+   - name: "Formatting the namenode"
+     command:
+       cmd: "hadoop namenode  -format -force"
+   - name: "starting namenode"
+     command: 
+       cmd: "hadoop-daemon.sh start namenode"       
